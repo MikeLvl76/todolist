@@ -1,7 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { TodoItem } from '../utils/types';
+import { Item } from '../components/item';
 
 @Component({
+  imports: [Item],
   selector: 'app-root',
   template: `<main>
     <div>
@@ -10,10 +12,12 @@ import { TodoItem } from '../utils/types';
         @for (item of list; track item.id) {
         <li>
           <div>
-            <p>{{ item.title }}</p>
-            <p>{{ item.description }}</p>
-            <p>{{ item.priority }}</p>
-            <p>{{ item.deadline }}</p>
+            <item-container
+              [title]="item.title"
+              [description]="item.description"
+              [priority]="item.priority"
+              [deadline]="item.deadline"
+            />
             <button (click)="deleteItem(item.id)">Remove</button>
           </div>
         </li>
@@ -26,6 +30,7 @@ import { TodoItem } from '../utils/types';
 })
 export class App {
   protected list: TodoItem[] = [
+    // Test for display
     {
       id: Math.random().toString(16).substring(2),
       title: 'Title',
