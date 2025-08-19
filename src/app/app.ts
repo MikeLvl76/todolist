@@ -5,28 +5,8 @@ import { Item } from '../components/item';
 @Component({
   imports: [Item],
   selector: 'app-root',
-  template: `<main>
-    <div>
-      <h1>Your todolist</h1>
-      <ul>
-        @for (item of list; track item.id) {
-        <li>
-          <div>
-            <item-container
-              [title]="item.title"
-              [description]="item.description"
-              [priority]="item.priority"
-              [deadline]="item.deadline"
-            />
-            <button (click)="deleteItem(item.id)">Remove</button>
-          </div>
-        </li>
-        }
-      </ul>
-      <button (click)="addItem()">Add new item</button>
-    </div>
-  </main>`,
-  styleUrl: './app.css',
+  templateUrl: '../templates/app.template.html',
+  styleUrl: "../styles.css"
 })
 export class App {
   protected list: TodoItem[] = [

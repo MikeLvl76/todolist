@@ -1,0 +1,10 @@
+@let t = title; @let p = priority; @let desc = description; @let ddln = deadline;
+
+<div class="flex flex-col align-top gap-2 min-h-40 max-h-64 p-2">
+  <div class="flex flex-row justify-between items-top">
+    <p class="font-bold text-2xl">{{ t() }}</p>
+    <p id="priority">{{ p() }}</p>
+  </div>
+  <span class="border-1 border-black break-all min-h-32 max-h-max p-2">{{ desc() }}</span>
+  <p id="deadline">{{ ddln() }}</p>
+</div>
