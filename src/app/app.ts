@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TodoItem } from '../utils/types';
 import { Item } from '../components/item';
 import { LucideAngularModule, Trash2Icon, PlusIcon } from 'lucide-angular';
+import { LocalStorageService } from '../services/local-storage';
 
 @Component({
   imports: [LucideAngularModule, Item],
@@ -10,24 +11,21 @@ import { LucideAngularModule, Trash2Icon, PlusIcon } from 'lucide-angular';
   styleUrl: '../styles.css',
 })
 export class App {
+  readonly localStorageService: LocalStorageService<TodoItem> = inject(LocalStorageService);
   readonly Trash2Icon = Trash2Icon;
   readonly PlusIcon = PlusIcon;
-  protected list: TodoItem[] = [
-    // Test for display
-    {
-      id: Math.random().toString(16).substring(2),
-      title: 'Title',
-      description: 'This is a description',
-      priority: 'low',
-      deadline: new Date(),
-    },
-  ];
+  readonly list: TodoItem[] = [];
+
+  constructor() {
+    const data = this.localStorageService.getAllData();
+    this.list.push(...data);
+  }
 
   addItem() {
     alert('TODO: add new item');
   }
 
   deleteItem(id: string) {
-    alert(`TODO: remove item ${id}`);
+    this.localStorageService.removeData(id);
   }
 }
