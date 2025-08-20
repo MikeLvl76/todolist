@@ -1,12 +1,13 @@
-@let l = list; @let del = deleteItem;
-
 <div class="flex flex-col gap-6 align-middle min-w-max h-screen">
   <h1 class="font-bold text-3xl text-center">Your todolist</h1>
-  <button class="w-32 h-12 bg-green-600 rounded-md text-white self-center" (click)="addItem()">
+  <button
+    class="w-32 h-12 bg-green-600 rounded-md text-white self-center cursor-pointer"
+    (click)="addItem()"
+  >
     Add new item
   </button>
   <ul class="flex justify-center list-none h-full max-h-full overscroll-auto">
-    @for (item of l; track item.id) {
+    @for (item of list; track item.id) {
     <li class="w-[40%] h-[50%] shadow-xl/50">
       <div class="flex flex-col justify-between h-full p-2">
         <item-container
@@ -15,7 +16,10 @@
           [priority]="item.priority"
           [deadline]="item.deadline"
         />
-        <button class="w-20 h-12 bg-red-600 rounded-md text-white self-end" (click)="del(item.id)">
+        <button
+          class="w-20 h-12 bg-red-600 rounded-md text-white self-end cursor-pointer"
+          (click)="deleteItem(item.id)"
+        >
           Remove
         </button>
       </div>
