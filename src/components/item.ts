@@ -4,7 +4,7 @@ import { TodoItem } from '../utils/types';
 
 @Component({
   imports: [LucideAngularModule],
-  selector: 'item-container',
+  selector: 'todo-item',
   templateUrl: `../templates/item.template.html`,
   styleUrl: '../styles.css',
 })

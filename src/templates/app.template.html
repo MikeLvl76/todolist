@@ -2,16 +2,17 @@
   <h1 class="font-bold text-3xl text-center">Your todolist</h1>
   <button
     class="flex flex-row justify-evenly items-center w-40 h-12 bg-green-600 rounded-md self-center cursor-pointer"
-    (click)="addItem()"
+    (click)="openDialog()"
   >
     <lucide-icon [img]="PlusIcon" size="28" color="white" class="place-self-center" />
     <p class="text-white">Add new item</p>
   </button>
+  <custom-dialog #dlg>Hello</custom-dialog>
   <ul class="flex justify-center list-none h-full max-h-full overscroll-auto">
     @for (item of list; track item.id) {
     <li class="w-[40%] h-[50%] shadow-xl/50">
       <div class="flex flex-col justify-between h-full p-2">
-        <item-container
+        <todo-item
           [title]="item.title"
           [description]="item.description"
           [priority]="item.priority"

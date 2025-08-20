@@ -1,0 +1,16 @@
+<dialog
+  class="flex flex-col fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[20vw] h-[40vh] p-2 shadow-xl/60 bg-gray-200 rounded-md"
+  #dialogRef
+>
+  <div class="flex h-12 justify-end">
+    <button
+      (click)="close()"
+      class="h-fit p-1 hover:border-1 hover:border-gray-600 hover:rounded-full hover:cursor-pointer"
+    >
+      <lucide-icon [img]="XIcon" size="16" color="black" />
+    </button>
+  </div>
+  <div class="flex flex-1">
+    <ng-content />
+  </div>
+</dialog>
