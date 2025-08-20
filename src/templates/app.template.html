@@ -1,10 +1,11 @@
 <div class="flex flex-col gap-6 align-middle min-w-max h-screen">
   <h1 class="font-bold text-3xl text-center">Your todolist</h1>
   <button
-    class="w-32 h-12 bg-green-600 rounded-md text-white self-center cursor-pointer"
+    class="flex flex-row justify-evenly items-center w-40 h-12 bg-green-600 rounded-md self-center cursor-pointer"
     (click)="addItem()"
   >
-    Add new item
+    <lucide-icon [img]="PlusIcon" size="28" color="white" class="place-self-center" />
+    <p class="text-white">Add new item</p>
   </button>
   <ul class="flex justify-center list-none h-full max-h-full overscroll-auto">
     @for (item of list; track item.id) {
@@ -17,10 +18,10 @@
           [deadline]="item.deadline"
         />
         <button
-          class="w-20 h-12 bg-red-600 rounded-md text-white self-end cursor-pointer"
+          class="w-12 h-12 bg-red-600 rounded-md self-end cursor-pointer"
           (click)="deleteItem(item.id)"
         >
-          Remove
+          <lucide-icon [img]="Trash2Icon" size="28" color="white" class="place-self-center" />
         </button>
       </div>
     </li>

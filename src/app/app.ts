@@ -1,14 +1,17 @@
 import { Component, signal } from '@angular/core';
 import { TodoItem } from '../utils/types';
 import { Item } from '../components/item';
+import { LucideAngularModule, Trash2Icon, PlusIcon } from 'lucide-angular';
 
 @Component({
-  imports: [Item],
+  imports: [LucideAngularModule, Item],
   selector: 'app-root',
   templateUrl: '../templates/app.template.html',
-  styleUrl: "../styles.css"
+  styleUrl: '../styles.css',
 })
 export class App {
+  readonly Trash2Icon = Trash2Icon;
+  readonly PlusIcon = PlusIcon;
   protected list: TodoItem[] = [
     // Test for display
     {
