@@ -1,5 +1,7 @@
-import { Component, ElementRef, input, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { LucideAngularModule, XIcon } from 'lucide-angular';
+import { Subscription } from 'rxjs';
+import { DialogService } from '../services/dialog';
 
 @Component({
   imports: [LucideAngularModule],
@@ -7,22 +9,29 @@ import { LucideAngularModule, XIcon } from 'lucide-angular';
   templateUrl: `../templates/dialog.template.html`,
   styleUrl: '../styles.css',
 })
-export class Dialog {
+export class Dialog implements OnInit, OnDestroy {
   @ViewChild('dialogRef') dialogElement!: ElementRef<HTMLDialogElement>;
+  private readonly dialogService: DialogService = inject(DialogService);
+  private sub!: Subscription;
 
   readonly XIcon = XIcon;
 
-  open() {
-    const dialog = this.dialogElement.nativeElement;
-    if (!dialog.open) {
-      dialog.showModal();
-    }
+  ngOnInit() {
+    this.sub = this.dialogService.isOpen$.subscribe((isOpen) => {
+      const dialog = this.dialogElement.nativeElement;
+      if (isOpen && !dialog.open) {
+        dialog.showModal();
+      } else if (!isOpen && dialog.open) {
+        dialog.close();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   close() {
-    const dialog = this.dialogElement.nativeElement;
-    if (dialog.open) {
-      dialog.close();
-    }
+    this.dialogService.close();
   }
 }

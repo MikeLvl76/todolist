@@ -1,6 +1,12 @@
-import { Component, input } from '@angular/core';
-import { LucideAngularModule, TriangleAlertIcon } from 'lucide-angular';
+import { Component, inject, input } from '@angular/core';
+import {
+  LucideAngularModule,
+  TriangleAlertIcon,
+  Trash2Icon,
+  CalendarClockIcon,
+} from 'lucide-angular';
 import { TodoItem } from '../utils/types';
+import { LocalStorageService } from '../services/local-storage';
 
 @Component({
   imports: [LucideAngularModule],
@@ -9,19 +15,24 @@ import { TodoItem } from '../utils/types';
   styleUrl: '../styles.css',
 })
 export class Item {
+  readonly localStorageService: LocalStorageService<TodoItem> = inject(LocalStorageService);
+  readonly Trash2Icon = Trash2Icon;
   readonly TriangleAlertIcon = TriangleAlertIcon;
+  readonly CalendarClockIcon = CalendarClockIcon;
+
+  id = input('');
   description = input('');
   priority = input<TodoItem['priority']>('Normal');
-  title = input();
-  deadline = input<TodoItem['deadline']>();
+  title = input(`Title ${this.localStorageService.size() + 1}`);
+  deadline = input<TodoItem['deadline']>(new Date());
 
-  formatDate(date?: Date) {
-    if (!date) return 'Unknown date';
-    return date.toLocaleString('fr-FR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
+  formatDate(date: Date) {
+    const newDate = new Date(date);
+    const day = newDate.getDay().toString().padStart(2, '0');
+    const month = newDate.getMonth().toString().padStart(2, '0');
+    const year = newDate.getFullYear().toString();
+
+    return `${day}/${month}/${year}`;
   }
 
   getPriorityColor(priority?: TodoItem['priority']) {
@@ -31,5 +42,9 @@ export class Item {
       if (priority == 'High') return '#ed2015';
     }
     return '#000000';
+  }
+
+  delete(id: string) {
+    this.localStorageService.removeData(id);
   }
 }

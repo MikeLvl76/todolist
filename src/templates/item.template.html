@@ -1,10 +1,24 @@
 @let formattedDeadline = formatDate(deadline()); @let priorityColor = getPriorityColor(priority());
 
-<div class="flex flex-col align-top gap-2 min-h-40 max-h-64 p-2">
+<div class="flex flex-col align-top gap-4 min-h-40 max-h-64 p-2">
   <div class="flex flex-row justify-between items-top">
     <p class="font-bold text-2xl">{{ title() }}</p>
-    <lucide-icon [img]="TriangleAlertIcon" size="32" [color]="priorityColor" />
+    <lucide-icon
+      [img]="TriangleAlertIcon"
+      size="32"
+      [color]="priorityColor"
+      title="{{ priority() }} priority"
+      class="hover:cursor-pointer"
+    />
   </div>
-  <span class="border-1 border-black break-all min-h-32 max-h-max p-2">{{ description() }}</span>
-  <p class="self-end">Created at {{ formattedDeadline }}</p>
+  <span class="rounded-md bg-gray-200 break-all min-h-32 max-h-max p-2 text-ellipsis">{{
+    description()
+  }}</span>
+  <div class="flex flex-row gap-1 items-center">
+    <lucide-icon [img]="CalendarClockIcon" size="24" color="black" />
+    <p class="font-bold text-sm">{{ formattedDeadline }}</p>
+  </div>
+  <button class="w-12 h-12 rounded-md self-end cursor-pointer" (click)="delete(id())">
+    <lucide-icon [img]="Trash2Icon" size="24" color="red" class="place-self-center" />
+  </button>
 </div>
