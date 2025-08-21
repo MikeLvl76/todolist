@@ -6,7 +6,7 @@ import {
   CalendarClockIcon,
 } from 'lucide-angular';
 import { TodoItem } from '../utils/types';
-import { LocalStorageService } from '../services/local-storage';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   imports: [LucideAngularModule],

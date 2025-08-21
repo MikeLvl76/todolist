@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { LucideAngularModule, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
-import { DialogService } from '../services/dialog';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   imports: [LucideAngularModule],

@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { LocalStorageService } from '../services/local-storage';
+import { LocalStorageService } from '../services/local-storage.service';
 import { TodoItem } from '../utils/types';
-import { DialogService } from '../services/dialog';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   imports: [ReactiveFormsModule, CommonModule],
