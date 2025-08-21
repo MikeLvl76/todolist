@@ -10,7 +10,7 @@ export class LocalStorageService<T extends { id: string; [key: string]: unknown 
     const data = localStorage.getItem('data');
     if (!data) return [] as T[];
 
-    return JSON.parse(JSON.parse(data)) as T[];
+    return JSON.parse(data) as T[];
   }
 
   saveData(data: T) {

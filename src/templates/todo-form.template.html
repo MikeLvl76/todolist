@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="handleSubmit(form.value)">
+  <div class="flex flex-col gap-2 align-top w-[28vw] h-[42vh] p-2">
+    <div class="flex flex-row justify-between align-middle">
+      <div class="flex flex-col gap-1 align-top">
+        <label class="font-bold text-md">Title</label>
+        <input
+          type="text"
+          formControlName="title"
+          class="bg-gray-300 rounded-md text-sm p-1 focus:outline-0"
+        />
+      </div>
+      <div class="flex flex-row gap-2 align-middle">
+        <label class="text-md font-bold">Priority</label>
+        <select formControlName="priority" class="w-20 h-fit">
+          <option *ngFor="let priority of priorities" [value]="priority">
+            {{ priority }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="flex flex-col gap-1 align-top">
+      <label class="font-bold text-md">Add description</label>
+      <textarea
+        formControlName="description"
+        class="w-full min-h-16 max-h-36 bg-gray-300 rounded-md text-sm p-1 focus:outline-0"
+      ></textarea>
+    </div>
+    <div class="flex flex-row gap-2 align-middle">
+      <label class="font-bold text-md">Deadline</label>
+      <input type="date" formControlName="deadline" class="focus:outline-0" />
+    </div>
+    <button
+      type="submit"
+      class="place-self-end bg-green-600 text-white font-bold rounded-md w-fit h-fit p-2 hover:cursor-pointer"
+    >
+      Submit
+    </button>
+  </div>
+</form>
