@@ -1,34 +1,38 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { TodoItem } from '../utils/types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocalStorageService<T extends { id: string; [key: string]: unknown }> {
-  constructor() {}
+export class LocalStorageService<T extends TodoItem> {
+  private readonly _data = new BehaviorSubject<T[]>(this.getAllData());
+  data$ = this._data.asObservable();
 
   getAllData() {
-    const data = localStorage.getItem('data');
-    if (!data) return [] as T[];
-
-    return JSON.parse(data) as T[];
+    return JSON.parse(localStorage.getItem('data') || '[]') as T[];
   }
 
-  saveData(data: T) {
-    const savedData = this.getAllData();
-    savedData.push(data);
-    localStorage.setItem('data', JSON.stringify(savedData));
+  private save(data: T[]) {
+    localStorage.setItem('data', JSON.stringify(data));
+    this._data.next(data);
   }
 
-  removeData(id: string) {
-    const savedData = this.getAllData();
-    localStorage.setItem('data', JSON.stringify(savedData.filter((item) => item.id !== id)));
+  addItem(item: T) {
+    const current = this.getAllData();
+    this.save([...current, item]);
   }
 
-  clear() {
-    localStorage.clear();
+  removeItem(id: string) {
+    const current = this.getAllData();
+    this.save(current.filter((item: T) => item.id !== id));
   }
 
   size() {
-    return localStorage.length;
+    return this._data.value.length;
+  }
+
+  clear() {
+    this.save([]);
   }
 }

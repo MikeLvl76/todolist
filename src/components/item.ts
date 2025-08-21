@@ -45,6 +45,6 @@ export class Item {
   }
 
   delete(id: string) {
-    this.localStorageService.removeData(id);
+    this.localStorageService.removeItem(id);
   }
 }

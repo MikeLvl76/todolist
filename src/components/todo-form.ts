@@ -25,7 +25,7 @@ export class TodoForm {
 
   handleSubmit(values: typeof this.form.value) {
     const id = Math.random().toString(16).substring(2);
-    this.localStorageService.saveData({ id, ...values } as Required<TodoItem> satisfies TodoItem);
+    this.localStorageService.addItem({ id, ...values } as Required<TodoItem> satisfies TodoItem);
     this.dialogService.close();
   }
 }

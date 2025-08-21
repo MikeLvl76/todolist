@@ -6,9 +6,10 @@ import { LocalStorageService } from '../services/local-storage';
 import { Dialog } from '../components/dialog';
 import { TodoForm } from '../components/todo-form';
 import { DialogService } from '../services/dialog';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  imports: [LucideAngularModule, Item, Dialog, TodoForm],
+  imports: [CommonModule, LucideAngularModule, Item, Dialog, TodoForm],
   selector: 'app-root',
   templateUrl: '../templates/app.template.html',
   styleUrl: '../styles.css',
@@ -17,10 +18,18 @@ export class App {
   readonly localStorageService: LocalStorageService<TodoItem> = inject(LocalStorageService);
   readonly Trash2Icon = Trash2Icon;
   readonly PlusIcon = PlusIcon;
-  readonly list: TodoItem[] = this.localStorageService.getAllData();
+  readonly list$ = this.localStorageService.data$;
   private readonly dialogService: DialogService = inject(DialogService);
 
   openDialog() {
     this.dialogService.open();
+  }
+
+  clear() {
+    return this.localStorageService.clear();
+  }
+
+  size() {
+    return this.localStorageService.size();
   }
 }
